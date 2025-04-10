@@ -1,19 +1,28 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Droplet, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
+import { getWaterData, updateWaterData, setWaterGoal } from '@/utils/localStorage';
 
 const HydrationTracker: React.FC = () => {
   const { toast } = useToast();
-  const [waterGoal, setWaterGoal] = useState(2000); // 2000ml default
-  const [waterIntake, setWaterIntake] = useState(0);
+  const [waterGoal, setWaterGoalState] = useState(2000); // 2000ml default
+  const [waterIntake, setWaterIntakeState] = useState(0);
   const [reminderInterval, setReminderInterval] = useState(120); // 2 hours in minutes
+  
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const { consumed, goal } = getWaterData();
+    setWaterIntakeState(consumed);
+    setWaterGoalState(goal);
+  }, []);
   
   const addWater = (amount: number) => {
     const newAmount = Math.min(waterIntake + amount, waterGoal);
-    setWaterIntake(newAmount);
+    setWaterIntakeState(newAmount);
+    updateWaterData(newAmount);
     
     if (newAmount >= waterGoal) {
       toast({
@@ -23,10 +32,16 @@ const HydrationTracker: React.FC = () => {
     }
   };
   
+  const handleUpdateGoal = (newGoal: number) => {
+    setWaterGoalState(newGoal);
+    setWaterGoal(newGoal);
+  };
+  
   const percentage = Math.round((waterIntake / waterGoal) * 100);
   
   const handleReset = () => {
-    setWaterIntake(0);
+    setWaterIntakeState(0);
+    updateWaterData(0);
     toast({
       title: "Tracker reset",
       description: "Your water intake tracker has been reset.",
@@ -34,13 +49,13 @@ const HydrationTracker: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+    <div className="space-y-4 animate-fade-in">
+      <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
+        <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">
           <Droplet className="text-blue-500" /> Hydration Tracker
         </h2>
         
-        <div className="mb-6">
+        <div className="mb-4 md:mb-6">
           <div className="flex justify-between mb-2">
             <span>Daily Progress</span>
             <span className="font-medium">{waterIntake} / {waterGoal} ml</span>
@@ -48,29 +63,29 @@ const HydrationTracker: React.FC = () => {
           <Progress value={percentage} className="h-3" />
         </div>
         
-        <div className="water-container h-48 mb-6 rounded-xl">
+        <div className="water-container h-36 md:h-40 mb-4 md:mb-6 rounded-xl">
           <div 
             className="water-fill animate-water-rise"
             style={{ height: `${percentage}%`, '--water-level': `${percentage}%` } as React.CSSProperties}
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-4xl font-bold">{percentage}%</span>
+            <span className="text-3xl md:text-4xl font-bold">{percentage}%</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-3 gap-3 mb-6">
-          <Button variant="outline" onClick={() => addWater(50)}>+ 50 ml</Button>
-          <Button variant="outline" onClick={() => addWater(200)}>+ 200 ml</Button>
-          <Button variant="outline" onClick={() => addWater(500)}>+ 500 ml</Button>
+        <div className="grid grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-6">
+          <Button variant="outline" onClick={() => addWater(50)} className="text-sm md:text-base px-2 md:px-4">+ 50 ml</Button>
+          <Button variant="outline" onClick={() => addWater(200)} className="text-sm md:text-base px-2 md:px-4">+ 200 ml</Button>
+          <Button variant="outline" onClick={() => addWater(500)} className="text-sm md:text-base px-2 md:px-4">+ 500 ml</Button>
         </div>
         
-        <div className="flex gap-3">
+        <div className="flex gap-2 md:gap-3">
           <Button 
             variant="default" 
-            className="w-full bg-blue-500 hover:bg-blue-600"
+            className="w-full bg-blue-500 hover:bg-blue-600 text-white"
             onClick={() => addWater(250)}
           >
-            <Plus className="mr-2 h-4 w-4" /> Add Water (250 ml)
+            <Plus className="mr-1 md:mr-2 h-4 w-4" /> Add Water (250 ml)
           </Button>
           <Button 
             variant="outline" 
@@ -82,7 +97,7 @@ const HydrationTracker: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-white rounded-xl shadow-md p-6">
+      <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
         <h3 className="text-lg font-semibold mb-4">Reminder Settings</h3>
         
         <div className="mb-4">
@@ -106,7 +121,7 @@ const HydrationTracker: React.FC = () => {
             <Button 
               variant="outline" 
               size="icon"
-              onClick={() => setWaterGoal(Math.max(500, waterGoal - 250))}
+              onClick={() => handleUpdateGoal(Math.max(500, waterGoal - 250))}
             >
               <Minus className="h-4 w-4" />
             </Button>
@@ -114,7 +129,7 @@ const HydrationTracker: React.FC = () => {
             <Button 
               variant="outline" 
               size="icon"
-              onClick={() => setWaterGoal(waterGoal + 250)}
+              onClick={() => handleUpdateGoal(waterGoal + 250)}
             >
               <Plus className="h-4 w-4" />
             </Button>

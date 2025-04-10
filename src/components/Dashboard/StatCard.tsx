@@ -8,9 +8,10 @@ interface StatCardProps {
   icon: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  children?: React.ReactNode;
 }
 
-const StatCard: React.FC<StatCardProps> = ({ title, value, icon, className, onClick }) => {
+const StatCard: React.FC<StatCardProps> = ({ title, value, icon, className, onClick, children }) => {
   return (
     <div 
       className={cn(
@@ -26,6 +27,7 @@ const StatCard: React.FC<StatCardProps> = ({ title, value, icon, className, onCl
       </div>
       <div className="mt-auto">
         <div className="text-2xl font-semibold">{value}</div>
+        {children}
       </div>
     </div>
   );

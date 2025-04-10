@@ -38,12 +38,11 @@ const ProgressCircle: React.FC<ProgressCircleProps> = ({
           cy={size / 2}
           r={radius}
           strokeWidth={strokeWidth}
-          className={color}
+          className={`progress-ring-circle ${color}`}
           fill="transparent"
           strokeDasharray={circumference}
           strokeDashoffset={offset}
           strokeLinecap="round"
-          className="progress-ring-circle"
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">

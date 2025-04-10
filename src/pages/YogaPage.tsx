@@ -1,12 +1,12 @@
 
 import React from 'react';
 import Layout from '@/components/Layout';
-import YogaWorkout from '@/components/Yoga/YogaWorkout';
+import YogaSessionTracker from '@/components/Yoga/YogaSessionTracker';
 
 const YogaPage = () => {
   return (
     <Layout>
-      <YogaWorkout />
+      <YogaSessionTracker />
     </Layout>
   );
 };

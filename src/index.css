@@ -43,16 +43,27 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  input[type="number"] {
+    -moz-appearance: textfield;
   }
 }
 
 @layer components {
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1 active:scale-95;
   }
   
   .stat-card {
-    @apply bg-white rounded-xl shadow-md p-4 flex flex-col h-full;
+    @apply bg-white rounded-xl shadow-md p-3 md:p-4 flex flex-col h-full;
   }
   
   .progress-ring-circle {
@@ -67,5 +78,33 @@
   
   .water-fill {
     @apply absolute bottom-0 left-0 right-0 bg-blue-400/70 transition-all duration-1000;
+  }
+  
+  @keyframes water-rise {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+  
+  .animate-water-rise {
+    animation: water-rise 1s ease-out;
+  }
+  
+  /* Better tap state for mobile */
+  @media (max-width: 768px) {
+    .card-hover:active, 
+    button:active {
+      transform: scale(0.96);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
   }
 }
