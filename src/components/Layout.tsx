@@ -9,12 +9,12 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-background">
+    <div className="min-h-screen flex flex-col bg-background overflow-x-hidden touch-manipulation">
       <Navbar />
-      <main className="flex-grow container px-4 py-6 mx-auto">
+      <main className="flex-grow container px-3 py-4 mx-auto pb-20 md:pb-6">
         {children}
       </main>
-      <footer className="py-4 text-center text-sm text-muted-foreground">
+      <footer className="hidden md:block py-4 text-center text-sm text-muted-foreground">
         <p>© 2025 Mindful Motion - Your Wellness Journey</p>
       </footer>
       <Toaster />
