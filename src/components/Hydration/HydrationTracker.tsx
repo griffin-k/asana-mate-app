@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Droplet, Plus, Minus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -11,6 +10,7 @@ const HydrationTracker: React.FC = () => {
   const [waterGoal, setWaterGoalState] = useState(2000); // 2000ml default
   const [waterIntake, setWaterIntakeState] = useState(0);
   const [reminderInterval, setReminderInterval] = useState(120); // 2 hours in minutes
+  const [activeButton, setActiveButton] = useState<number | null>(null); // Track the active button
   
   // Load data from localStorage on component mount
   useEffect(() => {
@@ -31,14 +31,14 @@ const HydrationTracker: React.FC = () => {
       });
     }
   };
-  
+
   const handleUpdateGoal = (newGoal: number) => {
     setWaterGoalState(newGoal);
     setWaterGoal(newGoal);
   };
-  
+
   const percentage = Math.round((waterIntake / waterGoal) * 100);
-  
+
   const handleReset = () => {
     setWaterIntakeState(0);
     updateWaterData(0);
@@ -50,12 +50,12 @@ const HydrationTracker: React.FC = () => {
 
   return (
     <div className="space-y-4 animate-fade-in">
-      <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
-        <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2">
+      <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-2 text-left">
           <Droplet className="text-blue-500" /> Hydration Tracker
         </h2>
         
-        <div className="mb-4 md:mb-6">
+        <div className="mb-4 sm:mb-6">
           <div className="flex justify-between mb-2">
             <span>Daily Progress</span>
             <span className="font-medium">{waterIntake} / {waterGoal} ml</span>
@@ -63,30 +63,48 @@ const HydrationTracker: React.FC = () => {
           <Progress value={percentage} className="h-3" />
         </div>
         
-        <div className="water-container h-36 md:h-40 mb-4 md:mb-6 rounded-xl">
+        <div className="relative h-36 sm:h-40 mb-4 sm:mb-6 rounded-xl">
           <div 
             className="water-fill animate-water-rise"
             style={{ height: `${percentage}%`, '--water-level': `${percentage}%` } as React.CSSProperties}
           />
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-3xl md:text-4xl font-bold">{percentage}%</span>
+            <span className="text-3xl sm:text-4xl font-bold">{percentage}%</span>
           </div>
         </div>
         
-        <div className="grid grid-cols-3 gap-2 md:gap-3 mb-4 md:mb-6">
-          <Button variant="outline" onClick={() => addWater(50)} className="text-sm md:text-base px-2 md:px-4">+ 50 ml</Button>
-          <Button variant="outline" onClick={() => addWater(200)} className="text-sm md:text-base px-2 md:px-4">+ 200 ml</Button>
-          <Button variant="outline" onClick={() => addWater(500)} className="text-sm md:text-base px-2 md:px-4">+ 500 ml</Button>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-4 sm:mb-6">
+          <Button 
+            variant="outline" 
+            onClick={() => { addWater(50); setActiveButton(50); }} 
+            className={`text-sm sm:text-base px-2 sm:px-4 ${activeButton === 50 ? 'bg-green-100' : ''}`}
+          >
+            + 50 ml
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => { addWater(200); setActiveButton(200); }} 
+            className={`text-sm sm:text-base px-2 sm:px-4 ${activeButton === 200 ? 'bg-green-100' : ''}`}
+          >
+            + 200 ml
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => { addWater(500); setActiveButton(500); }} 
+            className={`text-sm sm:text-base px-2 sm:px-4 ${activeButton === 500 ? 'bg-green-100' : ''}`}
+          >
+            + 500 ml
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => { addWater(1000); setActiveButton(1000); }} 
+            className={`text-sm sm:text-base px-2 sm:px-4 ${activeButton === 1000 ? 'bg-green-100' : ''}`}
+          >
+            + 1000 ml
+          </Button>
         </div>
         
-        <div className="flex gap-2 md:gap-3">
-          <Button 
-            variant="default" 
-            className="w-full bg-blue-500 hover:bg-blue-600 text-white"
-            onClick={() => addWater(250)}
-          >
-            <Plus className="mr-1 md:mr-2 h-4 w-4" /> Add Water (250 ml)
-          </Button>
+        <div className="flex gap-2 sm:gap-3">
           <Button 
             variant="outline" 
             className="w-full"
@@ -97,8 +115,8 @@ const HydrationTracker: React.FC = () => {
         </div>
       </div>
       
-      <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
-        <h3 className="text-lg font-semibold mb-4">Reminder Settings</h3>
+      <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
+        <h3 className="text-lg sm:text-xl font-semibold mb-4">Reminder Settings</h3>
         
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Remind me every</label>
@@ -117,7 +135,7 @@ const HydrationTracker: React.FC = () => {
         
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Daily Goal</label>
-          <div className="flex items-center">
+          <div className="flex items-center justify-center sm:justify-start">
             <Button 
               variant="outline" 
               size="icon"
@@ -125,7 +143,7 @@ const HydrationTracker: React.FC = () => {
             >
               <Minus className="h-4 w-4" />
             </Button>
-            <span className="mx-2 min-w-16 text-center">{waterGoal} ml</span>
+            <span className="mx-2 text-center">{waterGoal} ml</span>
             <Button 
               variant="outline" 
               size="icon"

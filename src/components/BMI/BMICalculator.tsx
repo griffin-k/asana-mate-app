@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Calculator, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -90,7 +89,8 @@ const BMICalculator: React.FC = () => {
   return (
     <div className="space-y-6 animate-fade-in">
       <div className="bg-white rounded-xl shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+        {/* Updated heading styling */}
+        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2 text-center sm:text-left">
           <Calculator className="text-primary" /> BMI Calculator
         </h2>
         
@@ -98,22 +98,22 @@ const BMICalculator: React.FC = () => {
           <RadioGroup 
             value={units} 
             onValueChange={(value) => setUnits(value as 'metric' | 'imperial')}
-            className="flex space-x-4"
+            className="flex flex-col sm:flex-row items-center sm:space-x-4"
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mb-2 sm:mb-0">
               <RadioGroupItem value="metric" id="metric" />
               <Label htmlFor="metric">Metric (cm/kg)</Label>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 mb-2 sm:mb-0">
               <RadioGroupItem value="imperial" id="imperial" />
               <Label htmlFor="imperial">Imperial (in/lb)</Label>
             </div>
           </RadioGroup>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
           <div className="space-y-2">
-            <Label htmlFor="height">
+            <Label htmlFor="height" className="text-sm sm:text-base">
               Height ({units === 'metric' ? 'cm' : 'inches'})
             </Label>
             <Input 
@@ -122,11 +122,12 @@ const BMICalculator: React.FC = () => {
               placeholder={units === 'metric' ? "Height in cm" : "Height in inches"}
               value={height}
               onChange={(e) => setHeight(e.target.value)}
+              className="text-sm sm:text-base"
             />
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="weight">
+            <Label htmlFor="weight" className="text-sm sm:text-base">
               Weight ({units === 'metric' ? 'kg' : 'pounds'})
             </Label>
             <Input 
@@ -135,12 +136,13 @@ const BMICalculator: React.FC = () => {
               placeholder={units === 'metric' ? "Weight in kg" : "Weight in pounds"}
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
+              className="text-sm sm:text-base"
             />
           </div>
         </div>
         
         <Button 
-          className="w-full"
+          className="w-full py-3 text-sm sm:text-base"
           onClick={calculateBMI}
           disabled={!height || !weight}
         >
@@ -150,27 +152,27 @@ const BMICalculator: React.FC = () => {
       
       {result && (
         <div className="bg-white rounded-xl shadow-md p-6 animate-scale-up">
-          <h3 className="text-lg font-semibold mb-4">Your Results</h3>
+          <h3 className="text-lg sm:text-xl font-semibold mb-4">Your Results</h3>
           
           <div className="flex justify-center mb-6">
             <div className="text-center">
-              <div className="text-5xl font-bold mb-2">{result.bmi}</div>
-              <div className={`text-xl font-medium ${result.color}`}>{result.category}</div>
+              <div className="text-4xl sm:text-5xl font-bold mb-2">{result.bmi}</div>
+              <div className={`text-lg sm:text-xl font-medium ${result.color}`}>{result.category}</div>
             </div>
           </div>
           
           <div className="space-y-6">
             <div>
-              <h4 className="font-medium mb-2">What does this mean?</h4>
-              <p className="text-muted-foreground">
+              <h4 className="font-medium text-sm sm:text-base mb-2">What does this mean?</h4>
+              <p className="text-sm sm:text-base text-muted-foreground">
                 BMI is a screening tool that can indicate whether you may have weight issues that could lead to health problems. 
                 However, it doesn't diagnose body fatness or health.
               </p>
             </div>
             
             <div>
-              <h4 className="font-medium mb-2">Recommendations:</h4>
-              <ul className="space-y-2">
+              <h4 className="font-medium text-sm sm:text-base mb-2">Recommendations:</h4>
+              <ul className="space-y-2 text-sm sm:text-base">
                 {result.tips.map((tip, index) => (
                   <li key={index} className="flex items-start">
                     <ArrowRight className="h-5 w-5 text-primary mr-2 flex-shrink-0 mt-0.5" />

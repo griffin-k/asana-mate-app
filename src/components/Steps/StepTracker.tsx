@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Activity, Plus, Minus, AlertTriangle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -135,9 +134,9 @@ const StepTracker: React.FC = () => {
   };
 
   return (
-    <div className="space-y-4 animate-fade-in">
-      <div className="bg-white rounded-xl shadow-md p-4 md:p-6">
-        <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2 text-left">
+    <div className="space-y-4 animate-fade-in px-4 sm:px-6 lg:px-8">
+      <div className="bg-white rounded-xl shadow-md p-4 md:p-6 flex flex-col items-center justify-center">
+        <h2 className="text-xl md:text-2xl font-bold mb-4 flex items-center gap-2 text-left w-full">
           <Activity className="text-primary" /> Step Counter
         </h2>
         
@@ -161,7 +160,7 @@ const StepTracker: React.FC = () => {
           </Alert>
         )}
         
-        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 mb-6">
+        <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 w-full mb-6">
           <div className="flex-shrink-0 w-full flex justify-center">
             <ProgressCircle percentage={percentage} size={160} strokeWidth={12}>
               <div className="text-center">
@@ -180,7 +179,7 @@ const StepTracker: React.FC = () => {
                   placeholder="Enter steps"
                   value={inputSteps}
                   onChange={(e) => setInputSteps(e.target.value)}
-                  className="h-10"
+                  className="h-10 flex-1"
                 />
                 <Button onClick={handleAddSteps}>Add</Button>
               </div>
@@ -188,7 +187,7 @@ const StepTracker: React.FC = () => {
             
             <div>
               <label className="block text-sm font-medium mb-1 text-left">Daily Goal</label>
-              <div className="flex items-center">
+              <div className="flex items-center justify-between gap-2">
                 <Button 
                   variant="outline" 
                   size="icon"
@@ -197,7 +196,7 @@ const StepTracker: React.FC = () => {
                 >
                   <Minus className="h-4 w-4" />
                 </Button>
-                <span className="mx-2 min-w-24 text-center">{goal.toLocaleString()} steps</span>
+                <span className="mx-2 text-center flex-1">{goal.toLocaleString()} steps</span>
                 <Button 
                   variant="outline" 
                   size="icon"
