@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Play, Pause, SkipForward, RefreshCw, Clock } from 'lucide-react';
+import { Play, Pause, SkipForward, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
@@ -153,97 +153,99 @@ const YogaWorkout: React.FC = () => {
   };
 
   return (
-    <div className="space-y-6 animate-fade-in">
-      <div className="bg-white rounded-xl shadow-md p-6">
-        {currentPoseIndex === -1 && !isWorkoutComplete && (
-          <div className="text-center p-8">
-            <h3 className="text-lg font-medium mb-4">Ready to begin your yoga practice?</h3>
-            <p className="text-muted-foreground mb-6">
-              This 7-minute workout consists of 7 yoga poses, each held for 1 minute.
-              Find a quiet space and get ready to focus on your breath and movement.
-            </p>
-            <Button size="lg" onClick={startWorkout}>
-              Start Workout
-            </Button>
-          </div>
-        )}
-
-        {currentPoseIndex >= 0 && !isWorkoutComplete && currentPose && (
-          <>
-            <div className="mb-4">
-              <div className="flex justify-between items-center mb-1">
-                <span>Overall Progress</span>
-                <span>{overallProgress}%</span>
-              </div>
-              <Progress value={overallProgress} className="h-2" />
+    <div className="h-screen overflow-y-auto px-4 py-6 sm:py-10 sm:px-6 bg-background">
+      <div className="max-w-4xl mx-auto space-y-6 animate-fade-in">
+        <div className="bg-white rounded-xl shadow-md p-6">
+          {currentPoseIndex === -1 && !isWorkoutComplete && (
+            <div className="text-center p-8">
+              <h3 className="text-lg font-medium mb-4">Ready to begin your yoga practice?</h3>
+              <p className="text-muted-foreground mb-6">
+                This 7-minute workout consists of 7 yoga poses, each held for 1 minute.
+                Find a quiet space and get ready to focus on your breath and movement.
+              </p>
+              <Button size="lg" onClick={startWorkout}>
+                Start Workout
+              </Button>
             </div>
+          )}
 
-            <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2 md:justify-between md:items-center">
-              <div className="w-full flex justify-center">
-                <img 
-                  src={currentPose.imagePath} 
-                  alt={currentPose.name}
-                  className="rounded-lg object-cover w-full max-w-xs md:max-w-sm" 
-                />
+          {currentPoseIndex >= 0 && !isWorkoutComplete && currentPose && (
+            <>
+              <div className="mb-4">
+                <div className="flex justify-between items-center mb-1">
+                  <span>Overall Progress</span>
+                  <span>{overallProgress}%</span>
+                </div>
+                <Progress value={overallProgress} className="h-2" />
               </div>
 
-              <div className="flex flex-col items-center md:items-start">
-                <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{currentPose.name}</h3>
-                <p className="text-muted-foreground mb-4 text-center md:text-left">{currentPose.description}</p>
+              <div className="grid grid-cols-1 gap-6 mb-6 md:grid-cols-2 md:items-center">
+                <div className="w-full flex justify-center">
+                  <img 
+                    src={currentPose.imagePath} 
+                    alt={currentPose.name}
+                    className="rounded-lg object-cover w-full max-w-xs md:max-w-sm" 
+                  />
+                </div>
 
-                <div className="mt-auto">
-                  <div className="flex justify-between items-center mb-1 w-full">
-                    <span>Current Pose</span>
-                    <span className="font-mono">{formatTime(timeLeft)}</span>
-                  </div>
-                  <Progress value={poseProgress} className="h-2 mb-4" />
+                <div className="flex flex-col items-center md:items-start">
+                  <h3 className="text-xl font-semibold mb-2 text-center md:text-left">{currentPose.name}</h3>
+                  <p className="text-muted-foreground mb-4 text-center md:text-left">{currentPose.description}</p>
 
-                  <div className="text-sm text-muted-foreground mb-4 text-center md:text-left">
-                    Pose {currentPoseIndex + 1} of {yogaPoses.length}
-                  </div>
+                  <div className="mt-auto w-full">
+                    <div className="flex justify-between items-center mb-1">
+                      <span>Current Pose</span>
+                      <span className="font-mono">{formatTime(timeLeft)}</span>
+                    </div>
+                    <Progress value={poseProgress} className="h-2 mb-4" />
 
-                  <div className="flex gap-2 w-full">
-                    <Button 
-                      variant={isPaused ? "default" : "outline"} 
-                      onClick={togglePause}
-                      className="flex-1"
-                    >
-                      {isPaused ? (
-                        <><Play className="mr-2 h-4 w-4" /> Resume</>
-                      ) : (
-                        <><Pause className="mr-2 h-4 w-4" /> Pause</>
-                      )}
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      onClick={nextPose}
-                      className="flex-1"
-                    >
-                      <SkipForward className="mr-2 h-4 w-4" /> Skip
-                    </Button>
+                    <div className="text-sm text-muted-foreground mb-4 text-center md:text-left">
+                      Pose {currentPoseIndex + 1} of {yogaPoses.length}
+                    </div>
+
+                    <div className="flex gap-2 w-full">
+                      <Button 
+                        variant={isPaused ? "default" : "outline"} 
+                        onClick={togglePause}
+                        className="flex-1"
+                      >
+                        {isPaused ? (
+                          <><Play className="mr-2 h-4 w-4" /> Resume</>
+                        ) : (
+                          <><Pause className="mr-2 h-4 w-4" /> Pause</>
+                        )}
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        onClick={nextPose}
+                        className="flex-1"
+                      >
+                        <SkipForward className="mr-2 h-4 w-4" /> Skip
+                      </Button>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </>
-        )}
+            </>
+          )}
 
-        {isWorkoutComplete && (
-          <div className="text-center p-8">
-            <h3 className="text-xl font-semibold mb-2">Workout Complete!</h3>
-            <p className="text-muted-foreground mb-6">
-              Great job! You've completed the 7-minute yoga session.
-              How do you feel? Take a moment to notice the effects on your body and mind.
-            </p>
-            <Button 
-              variant="outline" 
-              onClick={startWorkout}
-              className="flex items-center justify-center"
-            >
-              <RefreshCw className="mr-2 h-4 w-4" /> Start Again
-            </Button>
-          </div>
-        )}
+          {isWorkoutComplete && (
+            <div className="text-center p-8">
+              <h3 className="text-xl font-semibold mb-2">Workout Complete!</h3>
+              <p className="text-muted-foreground mb-6">
+                Great job! You've completed the 7-minute yoga session.
+                How do you feel? Take a moment to notice the effects on your body and mind.
+              </p>
+              <Button 
+                variant="outline" 
+                onClick={startWorkout}
+                className="flex items-center justify-center"
+              >
+                <RefreshCw className="mr-2 h-4 w-4" /> Start Again
+              </Button>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

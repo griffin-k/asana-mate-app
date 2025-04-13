@@ -67,7 +67,7 @@ const Index = () => {
     <Layout>
       <div className="space-y-4 md:space-y-6 animate-fade-in px-4 sm:px-6 lg:px-8">
         <section className="mb-4 md:mb-6 text-center">
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2">Welcome to MindfulMotion</h1>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold mb-2">Welcome to AsanaMate</h1>
           <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">
             Track your wellness journey in one place.
           </p>
