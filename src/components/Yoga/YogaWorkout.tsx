@@ -12,47 +12,48 @@ interface YogaPose {
 }
 
 const yogaPoses: YogaPose[] = [
+
   {
+    name: 'Downward Dog (Adho Mukha Svanasana)',
+    description: 'Form an inverted V shape with your body. Hands and feet on the ground, hips lifted high.',
+    duration: 60,
+    imagePath: '/dog.jpg'
+  },
+  {
+    name: 'Cobra Pose (Bhujangasana)',
+    description: 'Lie on your stomach, hands under shoulders, lift chest off the ground, keeping hips down.',
+    duration: 60,
+    imagePath:'/cobra.jpg'
+  },
+  {
+    name: 'Chair Pose (Utkatasana)',
+    description: 'Stand with feet together, bend knees, and lower hips as if sitting in a chair while raising arms.',
+    duration: 60,
+    imagePath: '/chair.jpg'
+  },
+    {
     name: 'Mountain Pose (Tadasana)',
     description: 'Stand tall with feet together, shoulders relaxed, weight evenly distributed through your feet.',
     duration: 60,
     imagePath: '/dog.jpg'
   },
   {
-    name: 'Downward Dog (Adho Mukha Svanasana)',
-    description: 'Form an inverted V shape with your body. Hands and feet on the ground, hips lifted high.',
-    duration: 60,
-    imagePath: '/placeholder.svg'
-  },
-  {
-    name: 'Cobra Pose (Bhujangasana)',
-    description: 'Lie on your stomach, hands under shoulders, lift chest off the ground, keeping hips down.',
-    duration: 60,
-    imagePath:'/placeholder.svg'
-  },
-  {
-    name: 'Chair Pose (Utkatasana)',
-    description: 'Stand with feet together, bend knees, and lower hips as if sitting in a chair while raising arms.',
-    duration: 60,
-    imagePath: '/placeholder.svg'
-  },
-  {
     name: 'Warrior II (Virabhadrasana II)',
     description: 'Front knee bent over ankle, back leg straight, arms extended, gaze over front hand.',
     duration: 60,
-    imagePath: '/placeholder.svg'
+    imagePath: '/sholder.svg'
   },
   {
     name: 'Seated Forward Bend (Paschimottanasana)',
     description: 'Sit with legs extended, fold forward from the hips, reaching toward your feet.',
     duration: 60,
-    imagePath: '/placeholder.svg'
+    imagePath: '/chair.jpg'
   },
   {
     name: 'Corpse Pose (Savasana)',
     description: 'Lie flat on your back, arms at sides, palms up, legs relaxed, eyes closed. Focus on breathing.',
     duration: 60,
-    imagePath: '/placeholder.svg'
+    imagePath: '/triangle.jpg'
   }
 ];
 
