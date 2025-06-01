@@ -28,8 +28,8 @@ const HydrationTracker: React.FC = () => {
       toast({
         title: "💧 Goal Reached!",
         description: "You've hit your water goal for the day. Stay hydrated! 🌊",
-        variant: "success",
         duration: 3000,
+        className: "android-toast",
       });
     }
   };
@@ -47,15 +47,15 @@ const HydrationTracker: React.FC = () => {
     toast({
       title: "🔄 Tracker Reset",
       description: "Hydration progress cleared. Start fresh!",
-      variant: "default",
       duration: 3000,
+      className: "android-toast",
     });
   };
 
   return (
     <div className="space-y-4 animate-fade-in">
       <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
-        <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center justify-center gap-2 text-center">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center justify-center gap-2">
           <Droplet className="text-blue-500" /> Hydration Tracker
         </h2>
         
