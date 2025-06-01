@@ -29,9 +29,10 @@ const App = () => (
           <Route path="/yoga" element={<YogaPage />} />
           <Route path="/history" element={<HistoryPage />} />
           <Route path="/bmi" element={<BMIPage />} />
+          <Route path="/gemini-chat" element={<GeminiChatPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
-          <Route path="/gemini-chat" element={<GeminiChatPage />} />
+          
 
         </Routes>
       </BrowserRouter>
