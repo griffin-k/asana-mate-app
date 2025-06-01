@@ -11,6 +11,8 @@ import HydrationPage from "./pages/HydrationPage";
 import YogaPage from "./pages/YogaPage";
 import HistoryPage from "./pages/HistoryPage";
 import BMIPage from "./pages/BMIPage";
+import GeminiChatPage from "./pages/GeminiChatPage";
+
 
 const queryClient = new QueryClient();
 
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/bmi" element={<BMIPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
+          <Route path="/gemini-chat" element={<GeminiChatPage />} />
+
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
