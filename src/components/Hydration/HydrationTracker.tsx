@@ -26,8 +26,10 @@ const HydrationTracker: React.FC = () => {
     
     if (newAmount >= waterGoal) {
       toast({
-        title: "Goal reached!",
-        description: "You've reached your water intake goal for today!",
+        title: "💧 Goal Reached!",
+        description: "You've hit your water goal for the day. Stay hydrated! 🌊",
+        variant: "success",
+        duration: 3000,
       });
     }
   };
@@ -43,15 +45,17 @@ const HydrationTracker: React.FC = () => {
     setWaterIntakeState(0);
     updateWaterData(0);
     toast({
-      title: "Tracker reset",
-      description: "Your water intake tracker has been reset.",
+      title: "🔄 Tracker Reset",
+      description: "Hydration progress cleared. Start fresh!",
+      variant: "default",
+      duration: 3000,
     });
   };
 
   return (
     <div className="space-y-4 animate-fade-in">
       <div className="bg-white rounded-xl shadow-md p-4 sm:p-6">
-        <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center gap-2 text-left">
+        <h2 className="text-xl sm:text-2xl font-bold mb-4 flex items-center justify-center gap-2 text-center">
           <Droplet className="text-blue-500" /> Hydration Tracker
         </h2>
         
