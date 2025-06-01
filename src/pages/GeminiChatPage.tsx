@@ -20,6 +20,7 @@ const GroqChatPage = () => {
   ]);
   const [input, setInput] = useState("");
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const sendMessage = async () => {
     if (!input.trim()) return;
@@ -58,8 +59,14 @@ const GroqChatPage = () => {
     chatBoxRef.current?.scrollTo(0, chatBoxRef.current.scrollHeight);
   }, [messages]);
 
+  const scrollInputIntoView = () => {
+    setTimeout(() => {
+      inputRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+    }, 300);
+  };
+
   return (
-    <div className="flex flex-col h-screen bg-blue-50">
+    <div className="flex flex-col min-h-screen bg-blue-50">
       <header className="p-4 bg-gradient-to-r from-blue-600 to-blue-800 text-white flex justify-between items-center shadow-lg rounded-b-lg">
         <div className="flex items-center space-x-3">
           <FaDumbbell className="text-3xl text-blue-300" />
@@ -89,6 +96,7 @@ const GroqChatPage = () => {
       <main
         ref={chatBoxRef}
         className="flex-1 overflow-y-auto p-5 space-y-3 scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-100"
+        style={{ paddingBottom: "80px" }} // space for fixed footer
       >
         {messages
           .filter((msg) => msg.role !== "system") // hide system prompt from UI
@@ -106,14 +114,25 @@ const GroqChatPage = () => {
           ))}
       </main>
 
-      <footer className="p-4 bg-blue-100 flex gap-3 border-t border-blue-300">
+      <footer
+        className="flex gap-3 border-t border-blue-300 p-4 bg-blue-100"
+        style={{
+          position: "fixed",
+          bottom: "env(safe-area-inset-bottom, 0px)",
+          left: 0,
+          right: 0,
+          zIndex: 10,
+        }}
+      >
         <input
+          ref={inputRef}
           type="text"
           className="flex-1 rounded-md border border-blue-400 px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Ask about Diet, Gym, Yoga..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && sendMessage()}
+          onFocus={scrollInputIntoView}
           aria-label="Message input"
         />
         <button
