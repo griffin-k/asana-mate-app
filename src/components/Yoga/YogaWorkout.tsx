@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, SkipForward, RefreshCw } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { useToast } from '@/hooks/use-toast';
 
 interface YogaPose {
   name: string;
@@ -12,7 +11,6 @@ interface YogaPose {
 }
 
 const yogaPoses: YogaPose[] = [
-
   {
     name: 'Downward Dog (Adho Mukha Svanasana)',
     description: 'Form an inverted V shape with your body. Hands and feet on the ground, hips lifted high.',
@@ -31,7 +29,7 @@ const yogaPoses: YogaPose[] = [
     duration: 60,
     imagePath: '/chair.jpg'
   },
-    {
+  {
     name: 'Mountain Pose (Tadasana)',
     description: 'Stand tall with feet together, shoulders relaxed, weight evenly distributed through your feet.',
     duration: 60,
@@ -58,7 +56,6 @@ const yogaPoses: YogaPose[] = [
 ];
 
 const YogaWorkout: React.FC = () => {
-  const { toast } = useToast();
   const [currentPoseIndex, setCurrentPoseIndex] = useState<number>(-1);
   const [isPaused, setIsPaused] = useState<boolean>(true);
   const [timeLeft, setTimeLeft] = useState<number>(0);
@@ -77,11 +74,6 @@ const YogaWorkout: React.FC = () => {
     setTimeLeft(yogaPoses[0].duration);
     setIsPaused(false);
     setIsWorkoutComplete(false);
-
-    toast({
-      title: "Workout Started",
-      description: "7-minute yoga workout has begun. Remember to breathe deeply!",
-    });
   };
 
   const togglePause = () => {
@@ -94,11 +86,6 @@ const YogaWorkout: React.FC = () => {
       setCurrentPoseIndex(nextIndex);
       setTimeLeft(yogaPoses[nextIndex].duration);
       setIsPaused(false);
-
-      toast({
-        title: "Next Pose",
-        description: `Now moving to ${yogaPoses[nextIndex].name}`,
-      });
     } else {
       endWorkout();
     }
@@ -107,14 +94,7 @@ const YogaWorkout: React.FC = () => {
   const endWorkout = () => {
     setIsPaused(true);
     setIsWorkoutComplete(true);
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
-
-    toast({
-      title: "Workout Complete!",
-      description: "Great job completing your 7-minute yoga workout!",
-    });
+    if (intervalRef.current) clearInterval(intervalRef.current);
   };
 
   useEffect(() => {
@@ -231,9 +211,9 @@ const YogaWorkout: React.FC = () => {
           )}
 
           {isWorkoutComplete && (
-            <div className="text-center p-8">
+            <div className="flex flex-col items-center justify-center p-8 text-center">
               <h3 className="text-xl font-semibold mb-2">Workout Complete!</h3>
-              <p className="text-muted-foreground mb-6">
+              <p className="text-muted-foreground mb-6 max-w-md">
                 Great job! You've completed the 7-minute yoga session.
                 How do you feel? Take a moment to notice the effects on your body and mind.
               </p>
