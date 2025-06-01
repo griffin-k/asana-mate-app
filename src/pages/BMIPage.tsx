@@ -5,9 +5,9 @@ import BMICalculator from '@/components/BMI/BMICalculator';
 
 const BMIPage = () => {
   return (
-    // <Layout>
+    <Layout>
       <BMICalculator />
-    // </Layout>
+    </Layout>
   );
 };
 
