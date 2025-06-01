@@ -75,7 +75,7 @@ const Index = () => {
 
         {/* Grid of 4 Cards */}
         <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-          <StatCard 
+          {/* <StatCard 
             title="Step Count" 
             value={
               <div className="flex items-end gap-2">
@@ -86,7 +86,7 @@ const Index = () => {
             icon={<Activity className="h-6 w-6" />}
             onClick={() => navigate('/steps')}
             className="card"
-          />
+          /> */}
           
           <StatCard 
             title="Hydration" 
@@ -123,7 +123,7 @@ const Index = () => {
         </section>
 
         {/* Step Progress Card Below the 4 Cards */}
-        <section className="w-full">
+        {/* <section className="w-full">
           <div className="bg-white rounded-xl shadow-xl p-6 mb-6">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-center mb-4 flex items-center gap-3">
               <Activity className="text-primary h-6 w-6" /> Step Progress
@@ -144,7 +144,7 @@ const Index = () => {
               </button>
             </div>
           </div>
-        </section>
+        </section> */}
       </div>
     </Layout>
   );
